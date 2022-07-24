@@ -11,8 +11,13 @@ import "@thirdweb-dev/contracts/feature/ContractMetadata.sol";
 import "./ERC4907.sol";
 import "../OwnableContract.sol";
 
-contract Collection is ERC4907, ERC721Enumerable, IMintableERC721, ContractMetadata, OwnableContract {
-
+contract Collection is
+    ERC4907,
+    ERC721Enumerable,
+    IMintableERC721,
+    ContractMetadata,
+    OwnableContract
+{
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -20,14 +25,19 @@ contract Collection is ERC4907, ERC721Enumerable, IMintableERC721, ContractMetad
     mapping(uint256 => string) private _tokenURIs;
 
     constructor(
+        string memory name_,
+        string memory symbol_,
         address owner_,
         address admin_
-    ) 
-        ERC4907("Collection", "Collection") {
-            initOwnableContract(owner_, admin_);
+    ) ERC4907(name_, symbol_) {
+        initOwnableContract(owner_, admin_);
     }
 
-    function mintTo(address to, string calldata uri) external override returns (uint256) {
+    function mintTo(address to, string calldata uri)
+        external
+        override
+        returns (uint256)
+    {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
@@ -35,14 +45,20 @@ contract Collection is ERC4907, ERC721Enumerable, IMintableERC721, ContractMetad
         return tokenId;
     }
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override
+        returns (string memory)
+    {
         return _tokenURIs[tokenId];
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId)
-        internal
-        override(ERC4907, ERC721Enumerable)
-    {
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override(ERC4907, ERC721Enumerable) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 

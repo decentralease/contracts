@@ -1,3 +1,4 @@
+require('dotenv').config();
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 
@@ -11,6 +12,12 @@ const config: HardhatUserConfig = {
       },
     },
   },
+  networks: {
+    bittorrent: {
+      url: "https://rpc.bt.io",
+      accounts: ["0x" + process.env.PRIVATE_KEY],
+    }
+  }
 };
 
 export default config;
