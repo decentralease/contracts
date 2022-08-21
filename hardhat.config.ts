@@ -16,6 +16,10 @@ const config: HardhatUserConfig = {
     bittorrent: {
       url: "https://rpc.bt.io",
       accounts: ["0x" + process.env.PRIVATE_KEY],
+    },
+    matic: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: ["0x" + process.env.PRIVATE_KEY]
     }
   }
 };

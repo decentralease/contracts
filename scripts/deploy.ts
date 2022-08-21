@@ -7,11 +7,11 @@ async function main() {
     const Market = await ethers.getContractFactory("Market");
     const market = await Market.deploy();
     await market.deployed();
-    await market.initialize(
+    await (await market.initialize(
         owner.address,
         owner.address
-    )
-    console.log("Market address", market.address);
+    )).wait();
+    console.log("Market:", market.address);
 
     const Collection = await ethers.getContractFactory("Collection");
     const ComplexDoNFT = await ethers.getContractFactory("ComplexDoNFT");
@@ -26,8 +26,8 @@ async function main() {
     console.log("Decentraland collection:", decentraland.address);
 
     const decentralandDoNFT = await ComplexDoNFT.deploy()
-    await decentralandDoNFT.deployed()
-    decentralandDoNFT.initialize(
+    await decentralandDoNFT.deployed();
+    await (await decentralandDoNFT.initialize(
         "Decentraland DoNFT",
         "DDCL",
         decentraland.address,
@@ -35,7 +35,7 @@ async function main() {
         owner.address,
         owner.address,
         owner.address
-    )
+    )).wait()
     console.log("Decentraland DoNFT:", decentralandDoNFT.address);
 
 
@@ -49,8 +49,8 @@ async function main() {
     console.log("Axie Infinity collection:", collection.address);
 
     const axieDoNFT = await ComplexDoNFT.deploy()
-    await axieDoNFT.deployed()
-    axieDoNFT.initialize(
+    await axieDoNFT.deployed();
+    await (await axieDoNFT.initialize(
         "Axie Infinity DoNFT",
         "DAXI",
         collection.address,
@@ -58,10 +58,8 @@ async function main() {
         owner.address,
         owner.address,
         owner.address
-    )
+    )).wait();
     console.log("Axie Infinity DoNFT:", axieDoNFT.address);
-
-
 
 }
 
